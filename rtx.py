@@ -11,7 +11,7 @@ def sendMsg(url, sender, pwd, msg, receivers, session=None):
 		"receivers":";".join(receivers),"sessionid":session}
 
 	resp = requests.post(url,data=params)
-	return resp.ok
+	return resp
 
 if __name__ == '__main__':
 	import sys
@@ -30,6 +30,10 @@ if __name__ == '__main__':
 	except Exception, e:
 		session = None
 
-	sendMsg(url, sender, pwd, msg, receivers, session)
+	resp = sendMsg(url, sender, pwd, msg, receivers, session)
+	if resp.ok:
+		print("done!")
+	else:
+		print("error:"+str(resp.status_code))
 
 
